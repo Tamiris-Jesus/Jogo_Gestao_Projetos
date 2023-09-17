@@ -7,7 +7,7 @@ body{
 .navJog{
 	width:40px;
 	height: 40px;
-	background-image: url("nave_jog.gif");
+	background-image: url("../assets/nave_jog.gif");
 	position: absolute;
 }
 .telaMsg{
@@ -40,7 +40,7 @@ body{
 .bomba{
 	width:24px;
 	height:40px;
-	background-image:URL("bomba.gif");
+	background-image:URL("../assets/bomba.gif");
 	position:absolute;
 }
 .explosaoChao{
