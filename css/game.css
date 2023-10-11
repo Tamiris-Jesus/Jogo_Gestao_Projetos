@@ -1,0 +1,110 @@
+
+/*###################################	Menu e Ranking	##############################*/
+.container{
+	display: none;
+	position: fixed;
+	
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  
+	border: 2px solid #000000;
+	border-radius: 15px;
+	box-shadow: 0 0 0 1px #888888, 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.3);
+  
+	font-family: 'Press Start 2P', cursive;
+  
+	z-index: 999;
+	/* width: 90vh;
+	height: 50vh; */
+	/* min-height: 50vh; Alteração: usar min-height em vez de height */
+	background-color: #3693df;
+	border-radius: 10px;
+	padding: 20px;
+	text-align: center;
+	opacity: 0.9;
+  
+  }
+  
+  .ranking{
+	margin-left: 35px;
+  }
+  
+  .menu{
+	display: flex;
+	flex-direction: column;
+	border-right: 5px solid black;
+	font-family: 'Press Start 2P', cursive;
+  
+  }
+  
+
+
+/* ###############################	JOGO	####################################*/
+
+body{
+	overflow-x: hidden;
+	overflow-y: hidden;
+	background-color: #fff;
+}
+
+/* imagem precisa ter a mesma quantidade de pixels que a div */
+
+.navJog{
+	width: 80px;
+	height: 80px;
+	background-image: url("../assets/novosub.gif");
+	position: absolute;
+}
+.telaMsg{
+	position: absolute;
+	margin-left: -25%;
+	top:50px;
+	left: 50%;
+	width: 720px;
+	height: 621px;
+	display: none;
+}
+#medidorPlaneta{
+	border:2px solid #000;
+	width:100px;
+	height:20px;
+	background-color: #fff;
+}
+#barraPlaneta{
+	width:300px;
+	height:20px;
+	background-color: #55f;
+}
+.tiroJog{
+	width:6px;
+	height:6px;
+	background-color: #000;
+	border-radius: 6px;
+	position: absolute;
+}
+.bomba{
+	width:24px;
+	height:40px;
+	background-image:URL("../assets/bomba.gif");
+	position:absolute;
+}
+.explosaoChao{
+	width:55px;
+	height:57px;
+	position:absolute;
+}
+.explosaoAr{
+	width:70px;
+	height:70px;
+	position:absolute;
+}
+.telaMsg{
+	position: absolute;
+	margin-left:-25%;
+	top:50px;
+	left:50%;
+	width: 720px;
+	height: 621px;
+	display: none;
+}
