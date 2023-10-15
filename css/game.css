@@ -56,26 +56,21 @@ body{
 	background-image: url("../assets/novosub.gif");
 	position: absolute;
 }
-.telaMsg{
-	position: absolute;
-	margin-left: -25%;
-	top:50px;
-	left: 50%;
-	width: 720px;
-	height: 621px;
-	display: none;
-}
+
+
 #medidorPlaneta{
 	border:2px solid #000;
 	width:100px;
 	height:20px;
 	background-color: #fff;
 }
+
 #barraPlaneta{
 	width:300px;
 	height:20px;
 	background-color: #55f;
 }
+
 .tiroJog{
 	width:6px;
 	height:6px;
@@ -99,12 +94,63 @@ body{
 	height:70px;
 	position:absolute;
 }
-.telaMsg{
-	position: absolute;
-	margin-left:-25%;
-	top:50px;
-	left:50%;
-	width: 720px;
-	height: 621px;
-	display: none;
-}
+
+/*##############	TABELA	######################*/
+
+table{
+	font-size: 25px;
+	margin-top: 30px;
+  }
+  
+  th:nth-child(1){
+	padding: 30px;
+  }
+  
+  
+  th:nth-child(2){
+	color: rgb(4, 1, 160);
+  
+  }
+  
+  th, td{
+	color: rgb(4, 1, 160);
+  }
+  
+  td:nth-child(2){
+	color: rgb(4, 1, 160);
+	font-weight: bold;
+  }
+  
+  h2{
+	color: rgb(2, 1, 85);
+	font-weight: bold;
+  }
+
+  
+  .restart-btn, .home-btn{
+	font-size: 20px;
+	margin-top: 80px;
+	margin-right: 25px;
+	padding: 15px;
+	border-radius: 10px;
+	background-color: rgb(38, 87, 192);
+   
+	color: rgb(5, 16, 31);
+	font-weight: bold;
+	font-family: 'Archivo Black', sans-serif;
+	transition: transform 0.3;
+  }
+  
+  .restart-btn:hover, .home-btn:hover {
+	transform: translateY(-8px);
+  }
+  
+  .home-btn{
+	line-height: 30px;
+  }
+  
+  .restart-btn, .home-btn:hover{
+	cursor: pointer;
+  }
+  
+  

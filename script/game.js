@@ -26,16 +26,29 @@ let players = []; // Lista de jogadores
 // Definir a direção das bombas (da direita para a esquerda)
 let dirxBombas = -1;
 
-// Função para exibir o menu de fim de jogo
+// Adicione uma variável de controle
+let gameOver = false;
+
 function endGameMenu() {
-  const container = document.querySelector('.container');
-  container.style.display = 'flex'; // Exibe o container do jogo
+  if (!gameOver) { // Verifique se o menu de fim de jogo ainda não foi exibido
+    const container = document.querySelector('.container');
+    container.style.display = 'flex'; // Exibe o container do jogo
 
-  const restartBtn = document.querySelector('.restart-btn');
-  const homeBtn = document.querySelector('.home-btn');
+    const restartBtn = document.querySelector('.restart-btn');
+    const homeBtn = document.querySelector('.home-btn');
 
-  restartBtn.addEventListener('click', reinicia); // Adiciona ouvinte de evento para o botão de reiniciar
-  homeBtn.addEventListener('click', goToHomePage); // Adiciona ouvinte de evento para o botão de voltar para a página inicial 
+    restartBtn.addEventListener('click', reinicia); // Adiciona ouvinte de evento para o botão de reiniciar
+    homeBtn.addEventListener('click', goToHomePage); // Adiciona ouvinte de evento para o botão de voltar para a página inicial 
+
+    const playerName = spanPlayer.innerHTML;
+    const playerTime = timer.innerHTML;
+    players.push({ name: playerName, time: playerTime });
+    localStorage.setItem('players', JSON.stringify(players));
+    showRanking();
+
+    // Defina a variável de controle como verdadeira para evitar chamadas adicionais
+    gameOver = true;
+  }
 }
 
 // Função para iniciar o temporizador
@@ -266,7 +279,10 @@ function gerenciaGame() {
 
     clearInterval(this.loop); // Limpa o intervalo do temporizador
 
+    localStorage.setItem('playerTime', timer.innerHTML);
+    localStorage.setItem('playerName', spanPlayer.innerHTML);
     endGameMenu(); // Chame endGameMenu() quando o jogador vencer
+    
   }
 }
 
@@ -311,9 +327,56 @@ function reinicia() {
   gameLoop();
 }
 
+/* ranking  */
+const showRanking = () => {
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const tbody = document.createElement('tbody');
+
+  const thRank = document.createElement('th');
+  const thName = document.createElement('th');
+  const thTime = document.createElement('th');
+
+  thRank.textContent = '#';
+  thName.textContent = 'Nome';
+  thTime.textContent = 'Tempo (segundos)';
+
+  thead.appendChild(thRank);
+  thead.appendChild(thName);
+  thead.appendChild(thTime);
+  table.appendChild(thead);
+
+  // Use a função de comparação para ordenar do maior para o menor tempo
+  players.sort((a, b) => b.time - a.time);
+
+  players.forEach((player, index) => {
+    const tr = document.createElement('tr');
+    const tdRank = document.createElement('td');
+    const tdName = document.createElement('td');
+    const tdTime = document.createElement('td');
+    tdRank.textContent = index + 1;
+    tdName.textContent = player.name;
+    tdTime.textContent = player.time;
+    tr.appendChild(tdRank);
+    tr.appendChild(tdName);
+    tr.appendChild(tdTime);
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+
+  const ranking = document.querySelector('.ranking');
+  ranking.appendChild(table);
+};
+
 window.onload = () => {
   const container = document.querySelector('.container');
   container.style.display = 'none'; // Esconde o container do jogo
+
+  const storedPlayers = JSON.parse(localStorage.getItem('players'));
+  if (storedPlayers) {
+    players = storedPlayers;
+  }
+  spanPlayer.innerHTML = localStorage.getItem('player');
 
   init();
 };
