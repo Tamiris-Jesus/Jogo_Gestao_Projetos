@@ -1,3 +1,8 @@
+// Selecionando elementos HTML pela classe
+const grid = document.querySelector('.grid');
+const spanPlayer = document.querySelector('.player');
+const timer = document.querySelector('.timer');
+
 // Declarando variáveis
 let diryJ = 0, dirxJ = 0, jog, velJ = 5, pjx, pjy;
 let velT;
@@ -8,24 +13,35 @@ let contBombas, velB, tmpCriaBomba;
 let bombasTotal;
 let vidaPlaneta, barraPlaneta;
 let ie = 0, isom = 0;
-let dirxT = 1; // Adicione a variável para controlar a direção horizontal dos tiros
+let dirxT = 1;
 let municao;
 let gameOver;
 
 // localStorage.clear();
+const pauseButton = document.getElementById("pauseButton");
+let isPaused = false;
+let elapsedGameTime = 0;
 
+
+pauseButton.addEventListener("click", () => {
+  if (isPaused) {
+    isPaused = false;
+    pauseButton.textContent = "Pausar";
+    gameLoop();
+  } else {
+    isPaused = true;
+    pauseButton.textContent = "Retomar jogo";
+    cancelAnimationFrame(frames);
+  }
+});
 
 const imagens = [
   "../assets/barrel.png",
   "../assets/soda.png",
   "../assets/nuclear.png",
   "../assets/garbage.png",
-  // Adicione mais URLs de imagens conforme necessário
 ];
-// Selecionando elementos HTML pela classe
-const grid = document.querySelector('.grid');
-const spanPlayer = document.querySelector('.player');
-const timer = document.querySelector('.timer');
+
 
 // Função auxiliar para criar elementos com classes
 function createElement(tag, className) {
@@ -47,8 +63,8 @@ function endGameMenu() {
     const restartBtn = document.querySelector('.restart-btn');
     const homeBtn = document.querySelector('.home-btn');
 
-    restartBtn.addEventListener('click', reinicia); // Adiciona ouvinte de evento para o botão de reiniciar
-    homeBtn.addEventListener('click', goToHomePage); // Adiciona ouvinte de evento para o botão de voltar para a página inicial 
+    restartBtn.addEventListener('click', reinicia); 
+    homeBtn.addEventListener('click', goToHomePage); 
 
     const playerName = spanPlayer.innerHTML;
     const playerTime = timer.innerHTML;
@@ -60,14 +76,18 @@ function endGameMenu() {
   }
 }
 
+
 // Função para iniciar o temporizador
 const startTimer = () => {
+  clearInterval(this.loop); // Limpa o intervalo do temporizador existente
+  elapsedGameTime = 0; // Reinicia o tempo
   this.loop = setInterval(() => {
-    const currentTime = +timer.innerHTML;
-    timer.innerHTML = currentTime + 1;
-  }, 1000); // Atualiza o temporizador a cada 1 segundo
+    if (!isPaused) {
+      elapsedGameTime += 1;
+      timer.innerHTML = elapsedGameTime;
+    }
+  }, 1000);
 };
-
 
 // Função para voltar para a página inicial
 const goToHomePage = () => {
@@ -76,9 +96,9 @@ const goToHomePage = () => {
 };
 
 function init() {
-  startTimer(); // Inicie o temporizador
+  startTimer(); 
 
-  jogo = true; // Altere para true para iniciar o jogo imediatamente
+  jogo = true; 
 
   gameOver = false;
 
@@ -143,8 +163,6 @@ function teclaUp(event) {
 
 // Função para criar bombas
 function criaBomba() {
-
-
   if (jogo) {
     let x = dirxBombas === -1 ? tamTelaW : -30;
     let y = Math.random() * tamTelaH;
@@ -236,23 +254,47 @@ function controleTiros() {
 }
 
 
+// function colisaoTiroBomba(tiro) {
+//   let tam = bombasTotal.length;
+//   for (let i = 0; i < tam; i++) {
+//     if (bombasTotal[i]) {
+//       if (
+//         (tiro.offsetTop <= (bombasTotal[i].offsetTop + 40)) &&
+//         ((tiro.offsetTop + 6) >= (bombasTotal[i].offsetTop)) &&
+//         (tiro.offsetLeft <= (bombasTotal[i].offsetLeft + 24)) &&
+//         ((tiro.offsetLeft + 6) >= (bombasTotal[i].offsetLeft))
+//       ) {
+//         criaExplosao(1, bombasTotal[i].offsetLeft - 25, bombasTotal[i].offsetTop);
+//         bombasTotal[i].remove();
+//         tiro.remove();
+//       }
+//     }
+//   }
+// }
+
+
+
 function colisaoTiroBomba(tiro) {
   let tam = bombasTotal.length;
   for (let i = 0; i < tam; i++) {
     if (bombasTotal[i]) {
+      const tiroRect = tiro.getBoundingClientRect();
+      const bombaRect = bombasTotal[i].getBoundingClientRect();
+
       if (
-        (tiro.offsetTop <= (bombasTotal[i].offsetTop + 40)) &&
-        ((tiro.offsetTop + 6) >= (bombasTotal[i].offsetTop)) &&
-        (tiro.offsetLeft <= (bombasTotal[i].offsetLeft + 24)) &&
-        ((tiro.offsetLeft + 6) >= (bombasTotal[i].offsetLeft))
+        tiroRect.top <= bombaRect.bottom &&
+        tiroRect.bottom >= bombaRect.top &&
+        tiroRect.left <= bombaRect.right &&
+        tiroRect.right >= bombaRect.left
       ) {
-        criaExplosao(1, bombasTotal[i].offsetLeft - 25, bombasTotal[i].offsetTop);
+        criaExplosao(1, bombaRect.left - 25, bombaRect.top);
         bombasTotal[i].remove();
         tiro.remove();
       }
     }
   }
 }
+
 
 // Função para criar explosões
 function criaExplosao(tipo, x, y) {
@@ -290,6 +332,7 @@ function escureceTela() {
   document.body.appendChild(darkLayer);
 }
 
+
 function removeTelaEscura() {
   const darkLayer = document.getElementsByClassName("dark-layer");
 
@@ -323,28 +366,30 @@ function gerenciaGame() {
 
 // Loop principal do jogo
 function gameLoop() {
-  if (jogo) {
+  if (!isPaused) {
     controlaJogador();
     controleTiros();
     controlaBomba();
     // atualizaContagemBalas();
+    gerenciaGame();
+    frames = requestAnimationFrame(gameLoop);
+  } else {
+    frames = requestAnimationFrame(gameLoop);
   }
-  gerenciaGame();
-  frames = requestAnimationFrame(gameLoop);
   return;
 }
+
 
 // Função para reiniciar o jogo
 function reinicia() {
   gameOver = false;
-
   const container = document.querySelector('.container');
   container.style.display = 'none'; // Esconde o container do jogo
 
   timer.innerHTML = '00'; // Reinicia o valor do temporizador para "00"
-  clearInterval(this.loop); // Limpa o intervalo do temporizador
-  startTimer(); //reinicia o temporizador
-
+  clearInterval(this.loop); // Limpa o intervalo do temporizador existente
+  elapsedGameTime = 0; // Reinicia o tempo
+  startTimer(); // Reinicia o temporizador
 
   const bombas = document.getElementsByClassName("bomba");
   while (bombas.length > 0) {
@@ -367,8 +412,12 @@ function reinicia() {
   gameLoop();
 }
 
+
+
+
 /* ranking  */
 const showRanking = () => {
+
   const existingTable = document.querySelector('.ranking table');
   if (existingTable) {
     existingTable.remove(); // Remove a tabela de classificação existente

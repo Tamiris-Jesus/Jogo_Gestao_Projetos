@@ -45,10 +45,32 @@
 body{
 	overflow-x: hidden;
 	overflow-y: hidden;
-	background-color: navy;
+	background-color: rgb(27 27 207);
 }
 
-/* imagem precisa ter a mesma quantidade de pixels que a div */
+
+#pauseButton {
+	position: fixed; 
+	top: 20px; 
+	right: 20px; 
+	height: 50px;
+	width: 70px;
+	z-index: 1000; 
+  }
+  
+/* .balas{
+	color: white;
+}
+
+.player, .timer{
+	color: #fff;
+} */
+
+header{
+	color: white;
+	font-size: 24px;
+}
+
 
 
 #painel{
@@ -57,9 +79,9 @@ body{
 }
 
 .navJog{
-	width: 80px;
-	height: 80px;
-	background-image: url("../assets/novosub.gif");
+	width: 100px;
+	height: 100px;
+	background-image: url("../assets/subMaior.gif");
 	position: absolute;
 }
 
@@ -70,10 +92,9 @@ body{
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.2); /* Cor de fundo semi-transparente */
+	background-color: rgba(0, 0, 0, 0.1); /* Cor de fundo semi-transparente */
   }
   
-
 
 #medidorPlaneta{
 	border:2px solid #000;
@@ -96,8 +117,8 @@ body{
 	position: absolute;
 }
 .bomba{
-	width:24px;
-	height:40px;
+	width:50px;
+	height:70px;
 	position:absolute;
 }
 
