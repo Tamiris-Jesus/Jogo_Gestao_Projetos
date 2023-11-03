@@ -412,6 +412,7 @@ function reinicia() {
   jogo = true;
   tmpCriaBomba = setInterval(criaBomba, 1700);
 
+  recarregaBalas();
   removeTelaEscura();
 
   gameLoop();
