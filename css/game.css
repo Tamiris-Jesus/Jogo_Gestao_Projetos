@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 /*###################################	Menu e Ranking	##############################*/
 .container{
 	display: none;
@@ -56,6 +56,12 @@ body{
 	height: 50px;
 	width: 70px;
 	z-index: 1000; 
+	font-size: 8px;
+	margin-top: 0;
+	margin-right: 0;
+	padding: 0;
+	color: white;
+	cursor: pointer;
   }
   
 /* .balas{
@@ -67,15 +73,32 @@ body{
 } */
 
 header{
-	color: white;
-	font-size: 24px;
+	color: rgb(255, 255, 255);
+	font-size: 16px;
+	font-family: 'Press Start 2P', cursive;
 }
 
-
-
 #painel{
-	z-index: 2; /* Define um valor maior de z-index para garantir que fique acima do overlay */
-	position: absolute;
+    z-index: 99; /* Define um valor maior de z-index para garantir que fique acima do overlay */
+    position: relative;
+}
+
+#painel header {
+    display: flex;
+	gap: 10px;
+    flex-direction: column;
+    align-items: center;
+	width: fit-content;
+  	margin: 0 auto;
+  	border: 1px solid white;
+	border-radius: 30px;
+  	padding: 0.75rem;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .navJog{
@@ -98,6 +121,7 @@ header{
 
 #medidorPlaneta{
 	border:2px solid #000;
+	border-radius: 25px;
 	width:100px;
 	height:20px;
 	background-color: #fff;
@@ -106,7 +130,8 @@ header{
 #barraPlaneta{
 	width:300px;
 	height:20px;
-	background-color: #55f;
+	border-radius: 25px;
+	background-color: rgb(177, 177, 253);
 }
 
 .tiroJog{
@@ -165,17 +190,16 @@ table{
   }
 
   
-  .restart-btn, .home-btn{
+  .restart-btn, .home-btn, .pause-button{
 	font-size: 20px;
 	margin-top: 80px;
 	margin-right: 25px;
 	padding: 15px;
 	border-radius: 10px;
 	background-color: rgb(38, 87, 192);
-   
+    font-family: 'Press Start 2P', cursive;
 	color: rgb(5, 16, 31);
 	font-weight: bold;
-	font-family: 'Archivo Black', sans-serif;
 	transition: transform 0.3;
   }
   
