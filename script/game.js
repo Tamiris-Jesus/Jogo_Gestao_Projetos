@@ -15,7 +15,10 @@ let vidaPlaneta, barraPlaneta;
 let ie = 0, isom = 0;
 let dirxT = 1;
 let municao;
-let gameOver;
+// let gameOver;
+let gameOver = false;
+
+
 
 // localStorage.clear();
 const pauseButton = document.getElementById("pauseButton");
@@ -361,16 +364,17 @@ function gerenciaGame() {
     localStorage.setItem('playerName', spanPlayer.innerHTML);
     endGameMenu(); // Chame endGameMenu() quando o jogador vencer
 
+    gameOver = true;
+
   }
 }
 
-// Loop principal do jogo
+
 function gameLoop() {
-  if (!isPaused) {
+  if (!isPaused && !gameOver) { // Verifique se o jogo não acabou
     controlaJogador();
     controleTiros();
     controlaBomba();
-    // atualizaContagemBalas();
     gerenciaGame();
     frames = requestAnimationFrame(gameLoop);
   } else {
@@ -378,6 +382,7 @@ function gameLoop() {
   }
   return;
 }
+
 
 
 // Função para reiniciar o jogo
