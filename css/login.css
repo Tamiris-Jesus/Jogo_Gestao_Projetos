@@ -94,7 +94,7 @@ h2{
 }
 button{
   margin-top: 30px;
-  background-color: #55e06c;
+  background-color: #559fe0;
   border-radius: 8px;
   color: white;
   cursor: pointer;
@@ -107,6 +107,9 @@ button{
 
 }
 
+.mostrarInfo{
+  max-width: 250px;
+}
 
 @-webkit-keyframes button {
   to {

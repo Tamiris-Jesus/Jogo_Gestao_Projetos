@@ -19,11 +19,14 @@ let municao;
 let gameOver = false;
 
 
-
 // localStorage.clear();
 const pauseButton = document.getElementById("pauseButton");
 let isPaused = false;
 let elapsedGameTime = 0;
+const helpButton = document.getElementById("helpButton");
+const infoDiv = document.querySelector(".info");
+
+let infoVisible = false;
 
 
 pauseButton.addEventListener("click", () => {
@@ -369,7 +372,6 @@ function gerenciaGame() {
   }
 }
 
-
 function gameLoop() {
   if (!isPaused && !gameOver) { // Verifique se o jogo não acabou
     controlaJogador();
@@ -382,7 +384,6 @@ function gameLoop() {
   }
   return;
 }
-
 
 
 // Função para reiniciar o jogo
@@ -420,14 +421,16 @@ function reinicia() {
 
 
 
-
 /* ranking  */
-const showRanking = () => {
-
+function showRanking() {
   const existingTable = document.querySelector('.ranking table');
   if (existingTable) {
     existingTable.remove(); // Remove a tabela de classificação existente
   }
+
+  players.sort((a, b) => b.time - a.time); // Ordene os jogadores pelo tempo do MAIOR para o MENOR
+
+  const topPlayers = players.slice(0, 5); // Pegue os 5 melhores jogadores
 
   const table = document.createElement('table');
   const thead = document.createElement('thead');
@@ -446,10 +449,7 @@ const showRanking = () => {
   thead.appendChild(thTime);
   table.appendChild(thead);
 
-  // Use a função de comparação para ordenar do maior para o menor tempo
-  players.sort((a, b) => b.time - a.time);
-
-  players.forEach((player, index) => {
+  topPlayers.forEach((player, index) => {
     const tr = document.createElement('tr');
     const tdRank = document.createElement('td');
     const tdName = document.createElement('td');
@@ -462,29 +462,13 @@ const showRanking = () => {
     tr.appendChild(tdTime);
     tbody.appendChild(tr);
   });
+
   table.appendChild(tbody);
 
   const ranking = document.querySelector('.ranking');
   ranking.appendChild(table);
-};
+}
 
-window.onload = () => {
-  const container = document.querySelector('.container');
-  container.style.display = 'none'; // Esconde o container do jogo
-
-  const storedPlayers = JSON.parse(localStorage.getItem('players'));
-  if (storedPlayers) {
-    players = storedPlayers;
-  }
-  spanPlayer.innerHTML = localStorage.getItem('player');
-
-  init();
-};
-
-const helpButton = document.getElementById("helpButton");
-const infoDiv = document.querySelector(".info");
-
-let infoVisible = false;
 
 helpButton.addEventListener("click", function() {
   if (!infoVisible) {
@@ -493,6 +477,14 @@ helpButton.addEventListener("click", function() {
   } else {
     infoDiv.style.display = "none";
     infoVisible = false;
+  }
+});
+
+helpButton.addEventListener("click", () => {
+  if (!isPaused) {
+    isPaused = true;
+    pauseButton.textContent = "Retomar jogo";
+    cancelAnimationFrame(frames);
   }
 });
 
@@ -506,4 +498,18 @@ const hideInfo = (event) => {
 };
 
 fecharBtn.addEventListener('click', hideInfo);
+
+
+window.onload = () => {
+  const container = document.querySelector('.container');
+  container.style.display = 'none'; // Esconde o container do jogo
+
+  const storedPlayers = JSON.parse(localStorage.getItem('players'));
+  if (storedPlayers) {
+    players = storedPlayers;
+  }
+  spanPlayer.innerHTML = localStorage.getItem('player');
+
+  init();
+};
 
