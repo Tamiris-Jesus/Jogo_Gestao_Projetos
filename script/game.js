@@ -481,3 +481,29 @@ window.onload = () => {
   init();
 };
 
+const helpButton = document.getElementById("helpButton");
+const infoDiv = document.querySelector(".info");
+
+let infoVisible = false;
+
+helpButton.addEventListener("click", function() {
+  if (!infoVisible) {
+    infoDiv.style.display = "flex";
+    infoVisible = true;
+  } else {
+    infoDiv.style.display = "none";
+    infoVisible = false;
+  }
+});
+
+const infoBtn = document.querySelector('.mostrarInfo');
+const informacoes = document.querySelector('.info');
+const fecharBtn = document.querySelector('.closeInfo');
+
+const hideInfo = (event) => {
+  event.preventDefault();
+  informacoes.style.display = 'none';
+};
+
+fecharBtn.addEventListener('click', hideInfo);
+
