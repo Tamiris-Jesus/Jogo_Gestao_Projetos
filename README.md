@@ -1,4 +1,5 @@
 # Jogo_Gestao_Projetos
 
 <h2>Tema: Meio Ambiente</h2>
-<p>Jogo desenvolvido para a matéria de Gestão de projetos a fim de conscientizar os usuários sobre a necessidade da preservação ambiental.</p>
+<p>Jogo desenvolvido para a matéria de Gestão de projetos a fim de conscientizar os usuários sobre a necessidade da preservação ambiental.</p><br>
+<h2>Link: https://tamiris-jesus.github.io/Jogo_Gestao_Projetos/ </h2>
